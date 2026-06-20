@@ -1,0 +1,3 @@
+"""
+Distribuciones de probabilidad.
+"""

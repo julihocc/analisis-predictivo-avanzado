@@ -1,0 +1,3 @@
+"""
+Pruebas de hipótesis estadísticas.
+"""
