@@ -1,0 +1,59 @@
+[project]
+name = "analisis-predictivo-avanzado"
+version = "1.0.0"
+description = "Educational repository for predictive analytics, statistical analysis, and operations research"
+authors = [
+    {name = "jdk2py"}
+]
+readme = "README.md"
+requires-python = ">=3.6,<3.7"
+dependencies = [
+    # Core scientific computing
+    "numpy==1.13.1",
+    "pandas==0.20.3",
+    "scipy==0.19.1",
+
+    # Machine learning
+    "scikit-learn==0.19.0",
+
+    # Statistical analysis
+    "statsmodels==0.8.0",
+
+    # Visualization
+    "matplotlib==2.0.2",
+    "seaborn==0.8.0",
+
+    # Jupyter
+    "jupyter>=1.0.0",
+    "jupyterlab>=0.27.0",
+    "ipykernel>=4.6.1",
+    "notebook>=5.0.0",
+
+    # Data processing
+    "openpyxl>=2.4.8",
+    "xlrd>=1.1.0",
+    "xlsxwriter>=0.9.8",
+
+    # OR-Tools (for optimization notebooks)
+    "ortools>=9.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=3.2.1",
+    "pylint>=1.7.2",
+    "rope>=0.10.5",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=3.2.1",
+    "pylint>=1.7.2",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["analisisPredictivo", "linearRegression", "distribucionesEspeciales"]

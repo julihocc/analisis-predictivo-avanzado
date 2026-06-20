@@ -2,7 +2,8 @@
 
 Repositorio educativo de análisis estadístico, probabilidad y optimización utilizando Python. Material estructurado por temas con código Python 3, notebooks de Jupyter y datasets centralizados.
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Tabla de Contenidos
@@ -34,16 +35,59 @@ Repositorio educativo de análisis estadístico, probabilidad y optimización ut
 
 ### Requisitos Previos
 
-- **Python 3.8 o superior** (recomendado: Python 3.10+)
-- **pip** o **conda** para gestión de paquetes
+- **Python 3.6+** (el proyecto usa Python 3.6 por compatibilidad con versiones antiguas de dependencias)
+- **uv** para gestión moderna de paquetes (recomendado)
 
-### Opción 1: Conda (Recomendado)
+### Opción 1: uv (Recomendado)
+
+[uv](https://docs.astral.sh/uv/) es un gestor de paquetes de Python extremadamente rápido escrito en Rust.
 
 ```bash
 # Clonar el repositorio
 git clone <repository-url>
 cd analisis-predictivo-avanzado
 
+# Instalar uv (si no lo tienes)
+# Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Crear entorno e instalar dependencias
+uv sync
+
+# Activar el entorno virtual
+# Windows:
+.venv\Scripts\activate
+# Linux/Mac:
+source .venv/bin/activate
+```
+
+**Ejecutar scripts sin activar el entorno:**
+```bash
+uv run python regression/simple/correlation_analysis.py
+```
+
+**Lanzar Jupyter:**
+```bash
+uv run jupyter notebook
+# o
+uv run jupyter lab
+```
+
+**Agregar nuevas dependencias:**
+```bash
+# Dependencia de producción
+uv add nombre-paquete
+
+# Dependencia de desarrollo
+uv add --dev nombre-paquete
+```
+
+### Opción 2: Conda (Legacy)
+
+```bash
 # Crear entorno conda
 conda env create -f ulsaPye.yml
 
@@ -51,7 +95,7 @@ conda env create -f ulsaPye.yml
 conda activate ulsaPye
 ```
 
-### Opción 2: pip + venv
+### Opción 3: pip + venv (Legacy)
 
 ```bash
 # Crear entorno virtual
@@ -69,16 +113,20 @@ pip install numpy pandas matplotlib scipy statsmodels scikit-learn seaborn jupyt
 
 ### Dependencias Principales
 
+Todas las dependencias están definidas en `pyproject.toml` para gestión con uv.
+
 | Librería | Versión | Uso |
 |----------|---------|-----|
-| numpy | >=1.20 | Computación numérica |
-| pandas | >=1.3 | Manipulación de datos |
-| matplotlib | >=3.4 | Visualización |
-| scipy | >=1.7 | Algoritmos científicos y estadísticos |
-| statsmodels | >=0.13 | Modelos estadísticos |
-| scikit-learn | >=1.0 | Machine learning |
-| seaborn | >=0.11 | Visualización estadística |
-| ortools | latest | Optimización (para notebooks) |
+| numpy | 1.13.1 | Computación numérica |
+| pandas | 0.20.3 | Manipulación de datos |
+| matplotlib | 2.0.2 | Visualización |
+| scipy | 0.19.1 | Algoritmos científicos y estadísticos |
+| statsmodels | 0.8.0 | Modelos estadísticos |
+| scikit-learn | 0.19.0 | Machine learning |
+| seaborn | 0.8.0 | Visualización estadística |
+| ortools | >=9.0.0 | Optimización (para notebooks) |
+
+**Nota**: Las versiones están fijadas para Python 3.6 compatibilidad. Para modernizar dependencias, edita `pyproject.toml` y ejecuta `uv sync`.
 
 ## Estructura del Repositorio
 
@@ -149,7 +197,9 @@ analisis-predictivo-avanzado/
 │   └── EXAMPLES.md                    # Ejemplos de código
 │
 ├── README.md                          # Este archivo
-├── ulsaPye.yml                        # Entorno conda
+├── pyproject.toml                     # Dependencias y configuración del proyecto (uv)
+├── .python-version                    # Versión de Python (3.6.15)
+├── ulsaPye.yml                        # Entorno conda (legacy)
 └── .gitignore                         # Archivos ignorados
 ```
 
@@ -400,7 +450,8 @@ Este repositorio fue completamente migrado de Python 2 a Python 3.
 
 ## Tecnologías
 
-- **Python 3.8+**
+- **Python 3.6+**
+- **uv**: Gestor de paquetes ultrarrápido
 - **NumPy, Pandas, Matplotlib**: Stack científico de Python
 - **SciPy**: Distribuciones estadísticas
 - **Statsmodels**: Modelos de regresión
