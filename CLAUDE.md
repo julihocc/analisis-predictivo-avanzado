@@ -8,7 +8,7 @@ This is a **predictive analytics** (análisis predictivo) educational repository
 
 **Author**: jdk2py
 **Primary Language**: Python 3.6 (with some Python 2.x legacy code)
-**Environment**: Conda environment defined in `ulsaPye.yml`
+**Environment**: uv-managed project (formerly conda-based, see `ulsaPye.yml` for legacy setup)
 
 ## Repository Structure
 
@@ -59,14 +59,52 @@ These notebooks demonstrate:
 
 ## Python Environment Setup
 
-### Conda Environment
+### Using uv (Recommended)
 
-The repository uses the `ulsaPye` conda environment defined in `ulsaPye.yml`.
+The repository now uses [uv](https://docs.astral.sh/uv/) for fast, modern Python package management.
 
-**To activate the environment**:
+**Installation**:
 ```bash
-conda env create -f ulsaPye.yml
-conda activate ulsaPye
+# Install uv (if not already installed)
+# Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**Setup and activate environment**:
+```bash
+# Create virtual environment and install dependencies
+uv sync
+
+# Activate the virtual environment
+# Windows
+.venv\Scripts\activate
+
+# macOS/Linux
+source .venv/bin/activate
+```
+
+**Add new dependencies**:
+```bash
+# Add a package
+uv add package-name
+
+# Add a development dependency
+uv add --dev package-name
+```
+
+**Run Python scripts directly** (without activating):
+```bash
+uv run python analisisPredictivo/advertising.py
+```
+
+**Launch Jupyter**:
+```bash
+uv run jupyter notebook
+# or
+uv run jupyter lab
 ```
 
 **Key dependencies** (Python 3.6):
@@ -78,8 +116,20 @@ conda activate ulsaPye
 - statsmodels 0.8.0
 - jupyter/jupyterlab
 - seaborn 0.8.0
+- ortools (for optimization notebooks)
 
-**Note**: The notebooks use Google Colab and install OR-Tools via `!pip install ortools`
+**Note**: All dependencies are now defined in `pyproject.toml`.
+
+### Legacy Conda Environment (Deprecated)
+
+For backward compatibility, the legacy conda environment is still available in `ulsaPye.yml`:
+
+```bash
+conda env create -f ulsaPye.yml
+conda activate ulsaPye
+```
+
+However, **uv is now the recommended setup method** for faster installation and better dependency management.
 
 ## Running the Code
 
@@ -87,14 +137,27 @@ conda activate ulsaPye
 
 Scripts are designed to be run directly from their respective directories:
 
+**Using uv (recommended)**:
 ```bash
 # Example: Run correlation analysis
 cd analisisPredictivo
-python advertising.py
+uv run python advertising.py
 
 # Example: Run linear regression model
 cd linearRegression
-python statsmodelExample.py
+uv run python statsmodelExample.py
+```
+
+**Using activated virtual environment**:
+```bash
+# Activate environment first
+source .venv/bin/activate  # macOS/Linux
+# or
+.venv\Scripts\activate  # Windows
+
+# Then run scripts
+cd analisisPredictivo
+python advertising.py
 ```
 
 **Important**: Many scripts use relative paths to load data:
@@ -109,8 +172,17 @@ Notebooks are designed for **Google Colab** (note the Colab badges in each noteb
 3. Run cells sequentially
 
 Alternatively, run locally with Jupyter:
+
+**Using uv (recommended)**:
 ```bash
-conda activate ulsaPye
+uv run jupyter notebook
+# or
+uv run jupyter lab
+```
+
+**Using activated environment**:
+```bash
+source .venv/bin/activate  # macOS/Linux or .venv\Scripts\activate (Windows)
 jupyter notebook
 ```
 

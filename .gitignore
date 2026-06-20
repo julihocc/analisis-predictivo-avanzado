@@ -79,9 +79,6 @@ target/
 profile_default/
 ipython_config.py
 
-# pyenv
-.python-version
-
 # pipenv
 Pipfile.lock
 
@@ -97,12 +94,15 @@ celerybeat.pid
 
 # Environments
 .env
-.venv
+.venv  # uv virtual environment
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+
+# uv
+# Note: uv.lock should be committed for reproducible builds
 
 # Spyder project settings
 .spyderproject
