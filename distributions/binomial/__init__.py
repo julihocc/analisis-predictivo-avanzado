@@ -1,0 +1,3 @@
+"""
+Distribución binomial.
+"""
